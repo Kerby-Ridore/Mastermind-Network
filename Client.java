@@ -11,13 +11,28 @@ public class Client {
         try{
             Socket client = new Socket(serverName, port);
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            System.out.print("Entrée votre combinaison: ");
-            String message = reader.readLine();
+            DataOutputStream out = new DataOutputStream(client.getOutputStream());
+            DataInputStream in = new DataInputStream(client.getInputStream());
 
-            OutputStream outToserver = client.getOutputStream();
-            DataOutputStream out = new DataOutputStream(outToserver);
-            out.writeUTF(message);
+            //ajout de la boucle
 
+            while(true){
+
+                //Lecture de la combinaison à tester
+                System.out.print("Entrée votre combinaison à tester: ");
+                String message = reader.readLine().toUpperCase();
+                out.writeUTF(message); // Envoi de la combinaison à tester au serveur
+
+                //reception du nombre de couleurs correctement et incorrectement positionnées
+                String response = in.readUTF().toUpperCase();
+                System.out.println("Réponse du serveur: " + response);
+
+                //Vérification de la combinaison test
+                if (response.equals("4,0")) {
+                    System.out.println("Félicitations");
+                    break;
+                }
+            }
             client.close();
         }
         catch(IOException e){

@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96898186-edab-40a3-8ce7-0f8f55a76d35" name="Changes" comment="Client v1">
-      <change afterPath="$PROJECT_DIR$/.idea/Mastermind-Network.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="96898186-edab-40a3-8ce7-0f8f55a76d35" name="Changes" comment="serveur version 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Serveur.java" beforeDir="false" afterPath="$PROJECT_DIR$/Serveur.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +79,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1740607236160</updated>
-      <workItem from="1740607237344" duration="7043000" />
+      <workItem from="1740607237344" duration="17735000" />
     </task>
     <task id="LOCAL-00001" summary="Travail Pratique">
       <option name="closed" value="true" />
@@ -100,15 +97,35 @@
       <option name="project" value="LOCAL" />
       <updated>1740607494314</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="serveur version 1">
+      <option name="closed" value="true" />
+      <created>1740615453836</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1740615453836</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Travail Pratique" />
     <MESSAGE value="Client v1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Client v1" />
+    <MESSAGE value="serveur version 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="serveur version 1" />
   </component>
 </project>
