@@ -1,5 +1,6 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,53 +19,54 @@ public class Serveur {
                 Socket server = serverSocket.accept();
                 System.out.println("Connexion établie");
 
-                //générer une combinaison secrète aléatoire
+                // Générer une combinaison secrète aléatoire
                 Code secretCode = new Code(new Random());
-                System.out.println(secretCode);
+                System.out.println("Code secret généré: " + secretCode);
 
-
-                //Affiche la chaine reçue du client
+                // Affiche la chaîne reçue du client
                 DataInputStream in = new DataInputStream(server.getInputStream());
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
 
-                while(true) {
+                boolean found = false;
+                while (!found) {
+                    try {
+                        String combinationClient = in.readUTF().toUpperCase();
+                        System.out.println("Combinaison proposée par le client: " + combinationClient);
 
-                    String CombinationClient = in.readUTF().toUpperCase();
-                    System.out.println("Combinaison proposé par le client: " + CombinationClient);
+                        Code guess = new Code(combinationClient);
 
-                    Code guess =new Code(CombinationClient);
+                        // Affiche le nombre de couleurs correctement positionnées
+                        int correctPositions = secretCode.numberOfColorsWithCorrectPosition(guess);
+                        System.out.println("Couleurs correctement positionnées : " + correctPositions);
 
-                    //Affiche le nombre de couleurs correctement positionnées
-                    int correctPositions = secretCode.numberOfColorsWithCorrectPosition(guess);
-                    System.out.println("Couleurs correctement positionnées : " + correctPositions);
+                        // Affiche le nombre de couleurs incorrectement positionnées
+                        int incorrectPositions = secretCode.numberOfColorsWithIncorrectPosition(guess);
+                        System.out.println("Couleurs incorrectement positionnées : " + incorrectPositions);
 
-                    //affiche le nombre de couleurs incorrectement positionnées
-                    int incorrectPositions = secretCode.numberOfColorsWithIncorrectPosition(guess);
-                    System.out.println("Couleurs incorrectement positionnées : " + incorrectPositions);
+                        // Envoie des résultats au client
+                        out.writeUTF("Position correcte: " + correctPositions + ", position incorrecte: " + incorrectPositions);
 
-
-                    //Envoie des résultats au client
-                    out.writeUTF(correctPositions + "," + incorrectPositions);
-
-                    //Vérification de la combinaison du client
-                    if (correctPositions == 4){
-                        System.out.println("Le client a réussi");
+                        // Vérification de la combinaison du client
+                        if (correctPositions == 4) {
+                            found = true;
+                            System.out.println("Le client a réussi");
+                        }
+                    } catch (EOFException e) {
+                        System.out.println("Le client a fermé la connexion");
                         break;
-
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        break;
                     }
-
-
                 }
 
-
-
-
+                // Fermer les flux et la connexion
+                in.close();
+                out.close();
                 server.close();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-
         }
     }
 }
