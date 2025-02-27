@@ -20,27 +20,44 @@ public class Serveur {
 
                 //générer une combinaison secrète aléatoire
                 Code secretCode = new Code(new Random());
+                System.out.println(secretCode);
 
 
                 //Affiche la chaine reçue du client
                 DataInputStream in = new DataInputStream(server.getInputStream());
-                String CombinationClient = in.readUTF().toUpperCase();
-                System.out.println("Combinaison proposé par le client: " + CombinationClient);
-
-                Code guess =new Code(CombinationClient);
-
-                //Affiche le nombre de couleurs correctement positionnées
-                int correctPositions = secretCode.numberOfColorsWithCorrectPosition(guess);
-                System.out.println("Couleurs correctement positionnées : " + correctPositions);
-
-                //affiche le nombre de couleurs incorrectement positionnées
-                int incorrectPositions = secretCode.numberOfColorsWithIncorrectPosition(guess);
-                System.out.println("Couleurs incorrectement positionnées : " + incorrectPositions);
-
-
-                //Envoie des résultats au client
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                out.writeUTF(correctPositions + "," + incorrectPositions);
+
+                while(true) {
+
+                    String CombinationClient = in.readUTF().toUpperCase();
+                    System.out.println("Combinaison proposé par le client: " + CombinationClient);
+
+                    Code guess =new Code(CombinationClient);
+
+                    //Affiche le nombre de couleurs correctement positionnées
+                    int correctPositions = secretCode.numberOfColorsWithCorrectPosition(guess);
+                    System.out.println("Couleurs correctement positionnées : " + correctPositions);
+
+                    //affiche le nombre de couleurs incorrectement positionnées
+                    int incorrectPositions = secretCode.numberOfColorsWithIncorrectPosition(guess);
+                    System.out.println("Couleurs incorrectement positionnées : " + incorrectPositions);
+
+
+                    //Envoie des résultats au client
+                    out.writeUTF(correctPositions + "," + incorrectPositions);
+
+                    //Vérification de la combinaison du client
+                    if (correctPositions == 4){
+                        System.out.println("Le client a réussi");
+                        break;
+
+                    }
+
+
+                }
+
+
+
 
                 server.close();
             }
